@@ -1,0 +1,15 @@
+0) Install OS
+1) Install Python
+2) Install pip & Install virtualenv (Package)
+    $ pip install virtualenv
+3) Create Environment(virtualenv .env)
+    $ virtualenv .env
+4) Activate Environment(.env\Scripts\activate)
+    $ .env\scripts\activate
+5) Install Packages in activated Environment
+    $ pip install flask
+6) Write/Clone Source Code
+    $ app.py
+7) Run app.py file
+    $ python app.py
+    $ flask run
