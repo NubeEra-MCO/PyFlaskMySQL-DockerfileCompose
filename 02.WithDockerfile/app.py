@@ -1,6 +1,6 @@
 # app.py
 
-from flask import Flask, jsonify
+from flask import Flask, jsonify,request, render_template
 import mysql.connector
 import os
 
@@ -21,15 +21,23 @@ db_connection = mysql.connector.connect(
     database=db_name
 )
 db_cursor = db_connection.cursor()
+@app.route('/')
+def index():
+    return 'Flask MySQL App Perform <a href=./insert>Insert</a> and <a href="./select">Select</a> Operations'
 
 # Create a route to insert data into the table
-@app.route('/insert')
+@app.route('/insert', methods=['GET', 'POST'])
 def insert_data():
-    query = "INSERT INTO {} (name, email) VALUES (%s, %s)".format(table_name)
-    values = ('John Doe', 'john@example.com')
-    db_cursor.execute(query, values)
-    db_connection.commit()
-    return 'Data inserted successfully!'
+    if request.method == 'POST':
+        name = request.form['name']
+        email = request.form['email']
+        query = f"INSERT INTO {table_name} (name, email) VALUES (%s, %s)"
+        values = (name, email)
+        db_cursor.execute(query, values)
+        db_connection.commit()
+        return 'Data inserted successfully!'
+    else:
+        return render_template('insert_form.html')
 
 # Create a route to select data from the table
 @app.route('/select')
