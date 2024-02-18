@@ -5,6 +5,7 @@ import mysql.connector
 import os
 
 app = Flask(__name__)
+app = Flask(__name__, template_folder='./templates')
 
 # Read environment variables
 db_host = os.environ.get('DB_HOST')
